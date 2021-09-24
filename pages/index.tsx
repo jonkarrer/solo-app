@@ -1,3 +1,9 @@
+import Login from "@/components/UserAuth/SignUp";
+
 export default function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 }
