@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/jonkarrer/solo-app_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="public/logo.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">project_title</h3>
@@ -159,3 +159,4 @@ Project Link: [https://github.com/jonkarrer/solo-app_name](https://github.com/jo
 [license-url]: https://github.com/jonkarrer/solo-app_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/jonkarrer
+[product-screenshot]: public/readme.png
