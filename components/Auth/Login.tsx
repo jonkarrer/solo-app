@@ -1,14 +1,18 @@
 import supabase from "@/utils/supabaseClient";
 import { useState } from "react";
 
-export default function SignUp() {
+export default function Login() {
   const [email, setEmail] = useState("");
 
-  const handleSignUp = async (email: string) => {
+  const handleLogin = async (email: string) => {
     try {
+      //Use supabase API function to request a magic link.
+      //signIn() accepts 5 arguments, but only passing an email sends a magic link automatically
       const { error } = await supabase.auth.signIn({ email });
+
       if (error) throw error;
-      alert("Check your email for login link");
+
+      alert(`Check your email, ${email} for login link!`);
     } catch (error: any) {
       alert(error.error_description || error.message);
     } finally {
@@ -24,10 +28,10 @@ export default function SignUp() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <button
-        className="border-4 text-4xl m-20 px-6 py-3"
+        className="border-4 text-2xl m-20 px-6 py-3"
         onClick={(e) => {
           e.preventDefault();
-          handleSignUp(email);
+          handleLogin(email);
         }}
       >
         Sign-up
