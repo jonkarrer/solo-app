@@ -4,8 +4,9 @@ import supabase from "@/utils/supabaseClient";
 export default function Account({ session }: { session: any }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
-  const [website, setWebsite] = useState("");
-  const [avatar_url, setAvatarUrl] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [phone, setPhone] = useState("");
+  const [firstName, setFirstName] = useState("");
 
   useEffect(() => {
     getProfile();
@@ -18,7 +19,7 @@ export default function Account({ session }: { session: any }) {
 
       let { data, error, status } = await supabase
         .from("profiles")
-        .select(`username, website, avatar_url`)
+        .select(`username, birth_date, phone_number`)
         .eq("id", user?.id)
         .single();
 
@@ -28,8 +29,8 @@ export default function Account({ session }: { session: any }) {
 
       if (data) {
         setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
+        setBirthday(data.birth_date);
+        setPhone(data.phone_number);
       }
     } catch (error: any) {
       alert(error.message);
@@ -38,15 +39,7 @@ export default function Account({ session }: { session: any }) {
     }
   }
 
-  async function updateProfile({
-    username,
-    website,
-    avatar_url,
-  }: {
-    username: any;
-    website: any;
-    avatar_url: any;
-  }) {
+  async function updateProfile({ username }: { username: any }) {
     try {
       setLoading(true);
       const user = supabase.auth.user();
@@ -54,8 +47,6 @@ export default function Account({ session }: { session: any }) {
       const updates = {
         id: user?.id,
         username,
-        website,
-        avatar_url,
         updated_at: new Date(),
       };
 
@@ -74,48 +65,24 @@ export default function Account({ session }: { session: any }) {
   }
 
   return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="username">Name</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="website"
-          value={website || ""}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+    <div className="grid place-content-center gap-5">
+      <h1 className="text-6xl">{username || ""}</h1>
+      <h3 className="text-3xl">{session.user.email}</h3>
+      <h3>{session.user.id}</h3>
+      <h3>{birthday || ""}</h3>
+      <h3>{phone || ""}</h3>
 
       <div>
-        <button
-          className="button block primary"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? "Loading ..." : "Update"}
-        </button>
-      </div>
-
-      <div>
-        <button
-          className="button block"
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button>
+        <button onClick={() => supabase.auth.signOut()}>Sign Out</button>
       </div>
     </div>
   );
 }
+
+/*
+   <div>
+        <button onClick={() => updateProfile({ username })} disabled={loading}>
+          {loading ? "Loading ..." : "Update"}
+        </button>
+      </div>
+*/

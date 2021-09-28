@@ -1,11 +1,26 @@
-import Login from "@/components/Auth/Login";
-import Questions from "@/components/Questions";
+import { useState, useEffect } from "react";
+import supabase from "@/utils/supabaseClient";
+import Account from "../components/Account";
+import Splash from "@/components/Auth/Splash";
 
 export default function Home() {
+  const [session, setSession] = useState("" as any);
+
+  useEffect(() => {
+    setSession(supabase.auth.session());
+
+    supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      setSession(session);
+    });
+  }, []);
+
   return (
     <div>
-      <Login />
-      <Questions />
+      {!session ? (
+        <Splash />
+      ) : (
+        <Account key={session.user.id} session={session} />
+      )}
     </div>
   );
 }

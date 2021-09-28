@@ -1,0 +1,72 @@
+/******* Animation for splash page *******/
+#logo {
+  animation: logo 2s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+@keyframes logo {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+#solo_together {
+  position: absolute;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  animation: solo_together 1s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+}
+@keyframes solo_together {
+  from {
+    top: 0;
+  }
+  to {
+    top: 16vh;
+    transform: translateY(0);
+  }
+}
+#airplane {
+  position: absolute;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  animation: airplane 1s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+}
+@keyframes airplane {
+  from {
+    top: 0;
+  }
+  to {
+    top: 33vh;
+    transform: translateY(0);
+  }
+}
+#get_started {
+  opacity: 0;
+  animation: get_started 1s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+}
+@keyframes get_started {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
