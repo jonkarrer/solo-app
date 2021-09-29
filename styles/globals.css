@@ -1,3 +1,6 @@
+/* Initial page animation before login */
+@import url("./components/animations/Splash/index.css");
+
 html,
 body {
   padding: 0;

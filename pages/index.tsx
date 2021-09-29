@@ -1,3 +1,26 @@
+import { useState, useEffect } from "react";
+import supabase from "@/utils/supabaseClient";
+import Account from "../components/Account";
+import Splash from "@/components/Auth/Splash";
+
 export default function Home() {
-  return <div></div>;
+  const [session, setSession] = useState("" as any);
+
+  useEffect(() => {
+    setSession(supabase.auth.session());
+
+    supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      setSession(session);
+    });
+  }, []);
+
+  return (
+    <div>
+      {!session ? (
+        <Splash />
+      ) : (
+        <Account key={session.user.id} session={session} />
+      )}
+    </div>
+  );
 }
