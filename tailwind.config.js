@@ -11,7 +11,6 @@ module.exports = {
         brown: "#5E464A",
         teal: "#95CFBD",
         "theme-pink": "#F093BD",
-        gold: "#FBCB7F",
       },
     },
   },

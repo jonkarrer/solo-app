@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import supabase from "@/utils/supabaseClient";
+import Link from "next/link";
+import Questions from "../Questions";
 
 export default function Account({ session }: { session: any }) {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [birthday, setBirthday] = useState("");
   const [phone, setPhone] = useState("");
-  const [firstName, setFirstName] = useState("");
 
   useEffect(() => {
     getProfile();
@@ -16,14 +19,13 @@ export default function Account({ session }: { session: any }) {
     try {
       setLoading(true);
       const user = supabase.auth.user();
-
       let { data, error, status } = await supabase
         .from("profiles")
         .select(`username, birth_date, phone_number`)
         .eq("id", user?.id)
         .single();
 
-      if (error && status !== 406) {
+      if (error && status) {
         throw error;
       }
 
@@ -33,7 +35,7 @@ export default function Account({ session }: { session: any }) {
         setPhone(data.phone_number);
       }
     } catch (error: any) {
-      alert(error.message);
+      router.push("/questions");
     } finally {
       setLoading(false);
     }

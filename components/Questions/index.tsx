@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import supabase from "@/utils/supabaseClient";
 
 export default function Questions() {
@@ -7,6 +8,11 @@ export default function Questions() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    //Must test in https
+    window.navigator.geolocation.getCurrentPosition(console.log, console.log);
+  });
 
   //This runs a regex test on the date input to make sure it is valid
   const isDateValid = (str: string): boolean => {
@@ -55,6 +61,7 @@ export default function Questions() {
         onSubmit={(e) => {
           handleSubmit(e);
         }}
+        className="grid place-items-center gap-5"
       >
         <input
           type="tel"
