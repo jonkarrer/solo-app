@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import supabase from "@/utils/supabaseClient";
 import Account from "../components/Account";
 import Splash from "@/components/Auth/Splash";
+import { Session } from "@supabase/gotrue-js";
 
 export default function Home() {
-  const [session, setSession] = useState("" as any);
+  const [session, setSession] = useState(null as Session | null);
 
   useEffect(() => {
     setSession(supabase.auth.session());
@@ -19,7 +20,7 @@ export default function Home() {
       {!session ? (
         <Splash />
       ) : (
-        <Account key={session.user.id} session={session} />
+        <Account key={session?.user?.id} session={session} />
       )}
     </div>
   );

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import supabase from "@/utils/supabaseClient";
-import { useRouter } from "next/router";
+import Router from "next/router";
 
 export default function SignIn() {
-  const router = useRouter();
   //Disable sign up button
   const [loading, setLoading] = useState(false);
 
@@ -14,16 +13,17 @@ export default function SignIn() {
   //Enter user credientials for sign up.
   const handleLogin = async (email: string, password: string) => {
     try {
-      //Supabase sign up API
+      //Supabase sign in API
       const { error } = await supabase.auth.signIn({
         email,
         password,
       });
       if (error) throw error;
       //Route to account if successful
-      router.push("/");
+      Router.push("/");
     } catch (error: any) {
       alert(error.error_description || error.message);
+      setLoading(false);
     } finally {
       console.log("Login process complete");
     }

@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import supabase from "@/utils/supabaseClient";
 
 export default function Questions() {
@@ -46,9 +46,8 @@ export default function Questions() {
       //Grab the desired table and insert a new row with user data.
       let { error } = await supabase.from("profiles").insert(updates);
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
+      Router.push("/");
     } catch (error: any) {
       alert(error.message);
     } finally {
