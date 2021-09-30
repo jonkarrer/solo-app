@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useUserContext } from "lib/UserContext";
+import Router from "next/router";
 import supabase from "@/utils/supabaseClient";
-import Link from "next/link";
 import Questions from "../Questions";
 
 export default function Account({ session }: { session: any }) {
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [birthday, setBirthday] = useState("");
   const [phone, setPhone] = useState("");
+
+  const { signOut } = useUserContext();
 
   useEffect(() => {
     getProfile();
@@ -36,7 +37,8 @@ export default function Account({ session }: { session: any }) {
         setPhone(data.phone_number);
       }
     } catch (error: any) {
-      router.push("/questions");
+      alert(error);
+      //router.push("/questions");
     } finally {
       setLoading(false);
     }
@@ -76,7 +78,7 @@ export default function Account({ session }: { session: any }) {
       <h3>{phone || ""}</h3>
 
       <div>
-        <button onClick={() => supabase.auth.signOut()}>Sign Out</button>
+        <button onClick={() => signOut()}>Sign Out</button>
       </div>
     </div>
   );
